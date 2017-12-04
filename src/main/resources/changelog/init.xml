@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="Create/Update tables" author="irina" runOnChange="true">
+
+        <!-- Drop tables if exists -->
+       <sql splitStatements="true">
+        DROP TABLE IF EXISTS "Books" CASCADE;
+            DROP TABLE IF EXISTS "Library" CASCADE;
+            DROP TABLE IF EXISTS "Users" CASCADE;
+          </sql>
+
+         <!-- Create tables -->
+        <createTable tableName="Books">
+
+            <column name="ins" type="int">
+                <constraints primaryKey="true"  nullable="false" />
+            </column>
+            <column name="nameBook" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authorBook" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="Users">
+            <column name="uId" type="int">
+                <constraints primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="login" type="varchar(50)">
+                <constraints unique="true"   nullable="false"/>
+            </column>
+            <column name="password" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="uId" tableName="Users" columnDataType="int" incrementBy="1" startWith="1"/>
+
+
+        <createTable tableName="Library">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="lIns" type="int">
+                <constraints
+                        foreignKeyName="" referencedColumnNames="ISN" deleteCascade="true" nullable="false"/>
+            </column>
+            <column name="user" type="int">
+                <constraints  foreignKeyName="" referencedColumnNames="uId" deleteCascade="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="id" tableName="Library" columnDataType="int" incrementBy="1" startWith="1"/>
+
+
+        <!-- Loading of Data -->
+        <loadData encoding="UTF-8" file="initdata/Books.csv" tableName="Books" separator=";">
+            <column name="ins" type="NUMERIC"/>
+            <column name="nameBook" type="STRING"/>
+            <column name="authorBook" type="STRING"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="initdata/Users.csv" tableName="Users" separator=";">
+            <column name="login" type="STRING"/>
+            <column name="password" type="STRING"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="initdata/Library.csv" tableName="Library" separator=";">
+            <column name="lIns" type="NUMERIC"/>
+            <column name="user" type="STRING"/>
+        </loadData>
+
+    </changeSet>
+
+
+</databaseChangeLog>
