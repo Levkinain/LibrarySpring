@@ -1,4 +1,4 @@
-package ru.library.config;
+package ru.library.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,9 +19,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-          //registry.addResourceHandler("/js/**").addResourceLocations("/META-INF/resources/js");
-       // registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/pages/js/");
-       // registry.addResourceHandler("/css/**").addResourceLocations("/META-INF/resources/js");
         registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
         }
 

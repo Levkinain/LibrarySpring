@@ -30,21 +30,41 @@
         </createTable>
 
         <createTable tableName="Users">
-            <column name="uId" type="int">
+            <column name="login" type="varchar(60)">
                 <constraints primaryKey="true"  nullable="false"/>
             </column>
-            <column name="login" type="varchar(50)">
-                <constraints unique="true"   nullable="false"/>
-            </column>
-            <column name="password" type="varchar(50)">
+            <column name="password" type="varchar(60)">
                 <constraints nullable="false"/>
             </column>
-            <column name="role" type="varchar(50)">
+            <column name="enabled" type="boolean">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addAutoIncrement columnName="uId" tableName="Users" columnDataType="int" incrementBy="1" startWith="1"/>
 
+        <createTable tableName="Role">
+            <column name="rId" type="int">
+                <constraints primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="nameRole" type="varchar(50)">
+                <constraints unique="true"   nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="rId" tableName="Role" columnDataType="int" incrementBy="1" startWith="100"/>
+
+
+        <createTable tableName="RoleUser">
+            <column name="ruId" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ruUser" type="varchar(50)">
+                <constraints
+                        foreignKeyName="" referencedColumnNames="login" deleteCascade="true" nullable="false"/>
+            </column>
+            <column name="ruRole" type="int">
+                <constraints  foreignKeyName="" referencedColumnNames="rId" deleteCascade="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addAutoIncrement columnName="ruId" tableName="RoleUser" columnDataType="int" incrementBy="1" startWith="1"/>
 
         <createTable tableName="Library">
             <column name="id" type="int">
@@ -54,8 +74,8 @@
                 <constraints
                         foreignKeyName="" referencedColumnNames="ISN" deleteCascade="true" nullable="false"/>
             </column>
-            <column name="user" type="int">
-                <constraints  foreignKeyName="" referencedColumnNames="uId" deleteCascade="true" nullable="false"/>
+            <column name="user" type="varchar(50)">
+                <constraints  foreignKeyName="" referencedColumnNames="login" deleteCascade="true" nullable="false"/>
             </column>
         </createTable>
         <addAutoIncrement columnName="id" tableName="Library" columnDataType="int" incrementBy="1" startWith="1"/>
@@ -71,12 +91,23 @@
         <loadData encoding="UTF-8" file="initdata/Users.csv" tableName="Users" separator=";">
             <column name="login" type="STRING"/>
             <column name="password" type="STRING"/>
+            <column name="enabled" type="BOOLEAN"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="initdata/Role.csv" tableName="Role" separator=";">
+            <column name="nameRole" type="STRING"/>
+        </loadData>
+
+        <loadData encoding="UTF-8" file="initdata/RoleUser.csv" tableName="RoleUser" separator=";">
+            <column name="ruUser" type="STRING"/>
+            <column name="ruRole" type="NUMERIC"/>
         </loadData>
 
         <loadData encoding="UTF-8" file="initdata/Library.csv" tableName="Library" separator=";">
             <column name="lIns" type="NUMERIC"/>
             <column name="user" type="STRING"/>
         </loadData>
+
 
     </changeSet>
 

@@ -1,6 +1,8 @@
-package ru.library.config;
+package ru.library.config.web;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import ru.library.config.dao.ServiceConfig;
+import ru.library.config.security.WebSecurityConfig;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -8,7 +10,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     // для инициализации бинов у нас использовалась аннотация @Bean
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {WebConfig.class,ServiceConfig.class}; // We dont need any special servlet config yet.
+        return new Class[] {WebConfig.class,ServiceConfig.class, WebSecurityConfig.class}; // We dont need any special servlet config yet.
         //AppSecurityConfig.class
 
     }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public class LibraryDaoImpl implements Dao {
-    public final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public static final String SQL_BOOK_INSERT = INSERT_INTO + Library.TABLE_NAME + OPEN_BRACKET +  Library.BOOK +COMMA + Library.USER + CLOSE_BRACKET +  VALUES + LIST_PARAM2;
     public static final String SQL_BOOK_DELETE = DELETE_FROM + Library.TABLE_NAME + WHERE + Library.BOOK + PARAM;
@@ -22,7 +22,7 @@ public class LibraryDaoImpl implements Dao {
    // public static final String SQL_LIBRARY_SELECT_ALL = SELECT + Book.INS + COMMA + Book.NAME_BOOK + COMMA + Book.AUTHOR_BOOK + COMMA + User.LOGIN + COMMA +  User.PASSWORD + COMMA + Library.ID +
    public static final String SQL_LIBRARY_SELECT_ALL = SELECT_ALL_FROM + Book.TABLE_NAME + LEFT_JOIN +
                     Library.TABLE_NAME + O_N + Library.TABLE_NAME + DOT + Library.BOOK + IS + Book.TABLE_NAME + DOT + Book.INS +
-            LEFT_JOIN + User.TABLE_NAME + O_N + Library.TABLE_NAME + DOT + Library.USER + IS + User.TABLE_NAME + DOT +  User.ID +
+            LEFT_JOIN + User.TABLE_NAME + O_N + Library.TABLE_NAME + DOT + Library.USER + IS + User.TABLE_NAME + DOT +  User.LOGIN +
             ORDER_BY + Book.TABLE_NAME+DOT+Book.AUTHOR_BOOK;
 
     @Autowired
@@ -49,3 +49,5 @@ public class LibraryDaoImpl implements Dao {
         jdbcTemplate.update(SQL_BOOK_UPDATE,library.getBook().getINS());
     }
 }
+
+

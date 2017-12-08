@@ -28,12 +28,12 @@ public class BooksServiceImpl implements Services {
         return booksDao.getBooksByAuthor(authorBook);
     }
 
-    public List getAll() {
+    public List getAll()
+    {
         return booksDao.getAll();
     }
-    public boolean insert(Object object) {
+    public void insert(Object object) {
         booksDao.insert(object);
-        return true;
     }
 
     public void delete(Object object) {

@@ -5,12 +5,9 @@ public class User {
     public static final String TABLE_NAME = "Users";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
-    public static final String ID = "uId";
-
 
     private String login;
     private String password;
-    private String uId;
 
     public User(String login, String password) {
         this.login = login;
@@ -37,7 +34,7 @@ public class User {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         User that = (User) obj;
-        if (!login.equals(that.login)) return false;
+        if (!login.equals(that.login)){ return false;}
         return true;
     }
 
@@ -54,11 +51,4 @@ public class User {
         return result;
     }
 
-    public String getuId() {
-        return uId;
-    }
-
-    public void setuId(String uId) {
-        this.uId = uId;
-    }
 }

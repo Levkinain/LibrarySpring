@@ -177,8 +177,8 @@
                 <configuration>
                     <changeLogFile>src/main/resources/changelog/changelog-master.xml</changeLogFile>
                     <liquibaseShouldRun>true</liquibaseShouldRun>
-                    <url>jdbc:h2:mem:test</url>
-                    <!-- <url> jdbc:h2:~/test</url>-->
+                   <url>jdbc:h2:mem:test</url>
+                    <!--  <url> jdbc:h2:~/test</url>-->
                       <username>sa</username>
                       <password></password>
                   </configuration>
@@ -191,7 +191,15 @@
                       </execution>
                   </executions>
               </plugin>
-          </plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
 
 
       </build>

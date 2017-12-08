@@ -1,11 +1,13 @@
-package ru.library.config;
+package ru.library.config.dao;
 
 import liquibase.integration.spring.SpringLiquibase;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -17,7 +19,7 @@ import javax.sql.DataSource;
 public class ServiceConfig {
     private static final Logger logger = Logger.getLogger(ServiceConfig.class);
 
-    @Bean
+    @Bean(name = "DataSource")
     public DataSource getDataSource() {
         logger.debug("Getting data source");
         return new EmbeddedDatabaseBuilder()
@@ -26,6 +28,15 @@ public class ServiceConfig {
                 .setName("test")
                 .build();
     }
+
+    @Autowired
+    @Bean(name = "transactionManager")
+    public DataSourceTransactionManager getTransactionManager(DataSource dataSource) {
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
+
+        return transactionManager;
+    }
+
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource) throws NamingException {
 

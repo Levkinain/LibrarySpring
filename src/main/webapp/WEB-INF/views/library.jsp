@@ -26,6 +26,7 @@
                 <td >${lib.book.getINS()}</td>
                 <td>${lib.book.getAuthorBook()}</td>
                 <td>${lib.book.getNameBook()}</td>
+                <!--как корректно передавать параметры в ajax и в модальные окна для динамических элементов-->
             </tr>
     </c:forEach>
 </table>

@@ -20,9 +20,8 @@ public class LibraryServiceImpl implements Services {
        return libraryDao.getAll();
     }
 
-    public boolean insert(Object o) {
+    public void insert(Object o) {
         libraryDao.insert(o);
-        return true;
     }
 
     public void delete(Object o) {
